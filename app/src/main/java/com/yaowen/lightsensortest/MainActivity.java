@@ -10,24 +10,24 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private SensorManager sensorManager;
-    private TextView lightLevel;
+    private SensorManager sensorManager;//所有传感器的管理器
+    private TextView lightLevel;//用来可以显示光照强度的控件
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        lightLevel = (TextView) findViewById(R.id.light_level);
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        lightLevel = (TextView) findViewById(R.id.light_level);//初始化控件
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);//获取传感器的实例
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);//获取传感器的类型，这里是获取光传感器
+        sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL);//注册传感器的响应事件
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (sensorManager != null) {
-            sensorManager.unregisterListener(listener);
+            sensorManager.unregisterListener(listener);//解除传感器的注册
         }
     }
 
