@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         lightLevel = (TextView) findViewById(R.id.light_level);//初始化控件
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);//获取传感器的实例
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);//获取传感器的类型，这里是获取光传感器
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);//获取传感器的类型，这里是获取光传感器
         sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL);//注册传感器的响应事件
     }
 
@@ -34,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private SensorEventListener listener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
-            // values数组中第1个下标的值就是当前的光照强度
-            float value = event.values[0];
-            lightLevel.setText("当前光线强度为：" + value + "lx");
+            float x=event.values[0];
+            float y=event.values[1];
+            float z=event.values[2];
+            lightLevel.setText("x："+x+"\n y："+y+"\n z："+z);
         }
 
         @Override
